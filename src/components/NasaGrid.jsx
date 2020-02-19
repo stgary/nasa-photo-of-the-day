@@ -3,17 +3,31 @@ import axios from "axios";
 import NasaCard from "./NasaCard";
 
 export default function NasaGrid() {
-    const [data, setData] = useState([]);
-    console.log(data);
+    const [obj, setObj] = useState({});
+    // console.log(obj);
 
     useEffect(() => {
         axios
-        .get("")
+        .get("https://api.nasa.gov/planetary/apod?api_key=pasrjU23jEfujKSFWRQPwZIlYzu54RbmfhD85VVx")
         .then(response => {
-            setData(response);
+            setObj(response.data);
+            // console.log(response);
         })
         .catch(error => {
-            console.log(error);
+            // console.log(error);
         });
     }, []);
+
+    return (
+        <div className = "apod">
+            <NasaCard 
+                date = {obj.date}
+                explanation = {obj.explanation}
+                image = {obj.hdurl}
+                title = {obj.title}
+            />
+        </div>
+    );
 }
+
+// pasrjU23jEfujKSFWRQPwZIlYzu54RbmfhD85VVx
